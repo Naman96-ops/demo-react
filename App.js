@@ -1,28 +1,34 @@
+import React from 'react';
+import {createRoot,ReactDOM} from "react-dom/client"
 
-{/* <div id="parent">
-       <div id="child1">
-           <h1>I am H1 tag</h1>
-           <h2>I am h2 tag</h2>
-    </div>
-     <div id="child2">
-           <h1>I am H1 tag</h1>
-           <h2>I am h2 tag</h2>
-    </div>
-</div> */}
 
-const parent = React.createElement("div",{id:"parent"},
-   [ React.createElement("div",{id:"child1"},
-       [ React.createElement("h1",{},"I am H1 tag"), React.createElement("h2",{},"I am H2 tag")]
-    ),React.createElement("div",{id:"child2"},
-       [ React.createElement("h1",{},"I am H1 tag"), React.createElement("h2",{},"I am H2 tag")]
-    ) ]
-)
+
 
 
 const heading = React.createElement("h1",{},"Hello world from React!!!!");
 
+const jsxHeading = <h1 id='heading' >
+Hello from JSX 
+</h1>
+
+const Title = () => <h1>Title</h1>
+
+const HeadingComponent =() => {
+return (
+<>
+<h1>Hello from component</h1>
+{jsxHeading}
+<Title />
+<h2>Hello </h2>
+</>
+)
+}
+
+                
+                   
+
 console.log(heading)
 
-const root = ReactDOM.createRoot(document.getElementById("root"))
+const root = createRoot(document.getElementById("root"))
 
-root.render(parent)
+root.render(<HeadingComponent />)
