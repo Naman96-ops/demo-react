@@ -13,7 +13,9 @@
   "author": "naman",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.15.4"
+    "parcel": "^2.15.4",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17"
   },
   "dependencies": {
     "react": "^19.1.0",
