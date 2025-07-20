@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard,{withPromotedLabel}  from "./RestaurantCard";
 
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
@@ -30,6 +30,8 @@ const Body = () => {
 
            setFilteredList(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     }
+
+   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard)
        
     const onlineStatus = useOnlineStatus();
     // if(listOfRes.length == 0){
@@ -40,27 +42,34 @@ const Body = () => {
 
    return listOfRes.length == 0 ? <Shimmer /> :(
       <div className='body'>
-        <div className='filter'>
-          <div className="search">
-            <input type="text" className="search-box" value={searchInput} 
+        <div className='flex'>
+          <div className="p-4 m-4">
+            <input type="text" className="border border-black border-solid" value={searchInput} 
                 onChange={(e) => setSearchInput(e.target.value)}
             />
-            <button onClick={() =>{
+            <button className="px-4 py-2 m-4 bg-green-100 rounded-lg hover:bg-zinc-200" onClick={() =>{
                 const filteredList = listOfRes.filter((res)=>res.info.name.toLowerCase().includes(searchInput.toLowerCase()))
                 setFilteredList(filteredList)
             }}>Search</button>
           </div>
-          <button onClick={() => {
+          <div className="flex items-center p-4 m-4">
+             <button className="px-4 py-2 m-4 bg-gray-100 rounded-lg hover:bg-slate-200" onClick={() => {
             const filteredList = listOfRes.filter((res) => res.info.avgRating > 4.4)
             setFilteredList(filteredList)
             console.log(filteredList)
           }
           
           }>Top Order Restaurant</button>
+          </div>
+         
         </div>
-        <div className='res-container'>
+        <div className='flex flex-wrap'>
          {
-            filteredList.map((restaurant) => <Link key={restaurant.info.id} to={"/restaurant/"+restaurant.info.id}><RestaurantCard  resData={restaurant}/></Link>)
+            filteredList.map((restaurant) => <Link key={restaurant.info.id} to={"/restaurant/"+restaurant.info.id}>
+            {
+              restaurant.info.isOpen ? <RestaurantCardPromoted resData={restaurant}/> :<RestaurantCard  resData={restaurant}/>
+            }
+           </Link> )
          }
          
         </div>
